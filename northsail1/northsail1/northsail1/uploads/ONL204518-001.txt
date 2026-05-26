@@ -1,0 +1,55 @@
+D:\Taping\ONL204518\001\ONL204518-001.txt
+
+w4.1a : ONL204518-001, Samourai MkI "White Spirit", Med#1, 6300 d/in, 3Di Edge Endurance, tc:uk, Mar:2026.
+DesMan: "02) Race" "01) Genoa 1 (Paneled Scrim/3Di360)" BL=24 DP=22 AR=19 Trim=12° PF=1 Luff=Medium
+PO#,ID: ONL204518-001 tim_corben Thu Mar 12 13:52:01 2026
+
+           Luff   LeGeo    Foot      LP    Area ORCHead  AeroAR  TrigAR
+Msm   :   8.650   8.350   4.387   4.200   18.57   17.90   3.612   2.060
+
+Girths:  Length %-Foot
+Foot  :   4.387   100.0
+1/4   :   3.247    74.0
+1/2   :   2.137    48.7
+3/4   :   1.070    24.4
+Head  :   0.080     1.8
+
+         2D Luff and Leech 1/8 point offsets from going from Foot to Head
+         0/0    1/8    1/4    3/8    1/2    5/8    3/4    7/8  15/16  1/1   length
+Lu(2D):   0      31     51     58     54     44     30     15      7   0     8.649
+          0   0.576  0.950  1.075  1.000  0.812  0.561  0.272  0.126   0
+Le(2D):   0     -68   -113   -139   -148   -140   -114    -68    -37   0     8.313
+          0   0.461  0.764  0.939  1.000  0.946  0.770  0.459  0.248   0
+Lu(Fan):  0      -5    -16    -28    -35    -34    -26    -14     -7   0     8.650
+          0   0.137  0.449  0.793  1.000  0.974  0.739  0.390  0.199   0
+Foot  :   0.    103    171    211    231    233    210    140   0.    4.387
+Head  :   0.      0      0      0      0      0      0      0   0.    0.080
+
+Marks :    Luff   Leech  Length  Diamonds %-positions
+SS2/8 :   2.163   2.116   3.239
+SS4/8 :   4.325   4.186   2.132
+SS6/8 :   6.488   6.257   1.067
+Hedwn :   8.649           0.001
+
+Spread:  Luff    Leech   Length  ToHead
+Sprd1 :           4.235   0.500   4.085
+
+Areas :  Luff    Leech   Length
+JGL   :   3.175   2.091   3.095
+JGM   :   4.964   4.183   2.028
+JGU   :   6.804   6.273   1.011
+JGT   :   7.739   7.316   0.526
+
+Msm's :   Edge1   Edge2    Pos1    Pos2  Length
+Msm#0 :    Luff   Leech   0.000   0.000   4.387
+Msm#1 :    Luff   Leech   0.149   0.000   4.198
+Msm#2 :    Luff   Leech   0.363   0.250   3.101
+Msm#3 :    Luff   Leech   0.574   0.500   2.039
+Msm#4 :    Luff   Leech   0.785   0.750   1.026
+Msm#5 :    Luff   Leech   0.892   0.875   0.542
+
+Angles:  Head    Tack    Clew
+Lines :  30.389  73.249  81.345
+Edges :  25.294  86.698  94.571
+
+Notes :

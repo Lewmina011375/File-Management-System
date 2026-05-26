@@ -1,0 +1,74 @@
+D:\3DI\ODE17090\001\ODE17090-001.txt
+
+w4.1a :76DUB_v5-9 tken from NS72 ODE13705-001
+      : P 31.45 E 10.35
+PO#,ID: KG Mon Tue Feb 10 18:39:09 2026
+
+           Luff   LeGeo    Foot      LP    Area ORCMain  AeroAR  TrigAR
+Msm   :  31.450  32.599  10.330   0.000  218.32  213.81   4.506   3.045
+
+Girths:  Length %-Foot
+Foot  :  10.330   100.0
+1/4   :   8.843    85.6
+1/2   :   7.152    69.2
+3/4   :   5.159    49.9
+Head  :   2.650    25.7
+
+         2D Luff and Leech 1/8 point offsets from going from Foot to Head
+         0/0    1/8    1/4    3/8    1/2    5/8    3/4    7/8  15/16  1/1   length
+Lu(2D):   0     138    253    331    366    349    277    155     79   0    31.439
+          0   0.378  0.691  0.907  1.000  0.953  0.759  0.425  0.217   0
+Le(2D):   0      99    185    254    304    331    324    251    162   0    31.885
+          0   0.325  0.609  0.837  1.000  1.090  1.066  0.827  0.534   0
+Lu(Fan):  0      90    157    196    207    191    148     83     43   0    31.450
+          0   0.435  0.756  0.947  1.000  0.919  0.714  0.399  0.208   0
+Foot  :   0.      5      6      6      6      5      4      2   0.   10.330
+Head  :   0.      1      2      2      2      1      1      0   0.    2.650
+
+# - Batts :    Luff   Leech   Girth  Length
+13- Bat#8 :   4.398   4.776   9.470   3.500 Short Batten
+12- FBa#5 :           7.170   1.400
+11- Bat#7 :   9.123   9.565   8.542   3.500 Short Batten
+10- FBa#4 :          11.956   1.400
+9 - Bat#6 :  13.780  14.362   7.537   3.500 Short Batten
+8 - FBa#3 :          16.758   1.400
+7 - Bat#5 :  18.513  19.156   6.428   3.500 Short Batten
+6 - FBa#2 :          21.217   1.400
+5 - Bat#4 :  22.338  23.126           5.433 Full Length Batten
+4 - FBa#1 :          25.284   1.400
+3 - Bat#3 :  26.145  27.049           4.346 Full Length Batten
+2 - Bat#2 :  28.494  29.665           3.589 Full Length Batten
+1 - Bat#1 :  29.932  31.834           3.129 Full Length Batten
+
+Marks :    Luff   Leech  Length  Diamonds %-positions
+SS2/8 :   7.862   8.296   8.795
+SS4/8 :  15.725  16.205   7.110
+SS6/8 :  23.587  24.108   5.125
+SS7/8 :  27.519  28.067   3.968
+Cungh :   0.201           0.094
+Hedwn :  31.249           0.003
+
+Spread:  Luff    Leech   Length  ToHead
+Sprd1 :           6.408   2.791  25.489
+Sprd2 :          14.166   2.574  17.732
+Sprd3 :          22.003   1.724   9.895
+
+Areas :  Luff    Leech   Length
+MQW   :   8.433           8.800
+MHW   :  16.524           7.048
+MTW   :  24.655           4.938
+MUW   :  28.894           3.629
+
+Msm's :   Edge1   Edge2    Pos1    Pos2  Length
+Msm#0 :    Luff   LeMsm   0.000   0.000  10.330
+Msm#1 :    Luff   LeMsm   0.258   0.250   8.839
+Msm#2 :    Luff   LeMsm   0.512   0.500   7.142
+Msm#3 :    Luff   LeMsm   0.763   0.750   5.144
+Msm#4 :    Luff   LeMsm   0.886   0.875   3.987
+Msm#5 :    Luff   LeMsm   1.000   0.000  32.599
+
+Angles:  Head    Tack    Clew
+Lines :  15.260  87.596  80.058
+Edges :  21.219  89.374  80.764
+
+Notes : DESIGN NOTES

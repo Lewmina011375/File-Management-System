@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battens &amp; Pockets - FP Checking System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { luna: { light: '#A7EBF2', 'mid-light': '#54ACBF', mid: '#26658C', dark: '#023859', darkest: '#011C40' } } } } }</script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Times New Roman', Times, serif; }
+        .nav-link.active { background: rgba(255,255,255,0.15); color: #fff !important; }
+        #battensTab.nav-tabs .nav-link { color: #A7EBF2 !important; font-weight: 600; border-color: #26658C; background: transparent; }
+        #battensTab.nav-tabs .nav-link:hover { color: #fff !important; background: rgba(255,255,255,0.1); }
+        #battensTab.nav-tabs .nav-link.active { background: #26658C !important; color: #fff !important; border-color: #54ACBF; }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-[#023859] via-[#022d47] to-[#011C40] pt-14 font-sans text-white antialiased">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#011C40] shadow-lg border-b border-[#26658C]">
+        <div class="max-w-7xl mx-auto px-6 flex items-center gap-0">
+            <a href="/" class="flex items-center gap-3 py-2 pr-5 text-white font-bold text-lg hover:text-[#A7EBF2] transition-colors">
+                <img src="https://wordpress.textileworld.com/wp-content/uploads/2024/02/00_NS-BULLET_WM_ROYAL.png" alt="North Sails" class="h-10 w-auto object-contain">
+                FP Checking System
+            </a>
+            <ul class="flex list-none m-0 p-0 gap-0.5">
+                <li><a href="/" class="nav-link block py-4 px-5 text-white/90 text-[0.95rem] hover:bg-white/15 hover:text-white transition-all rounded"><i class="fas fa-ruler-combined mr-1"></i> Measurements</a></li>
+                <li><a href="/battens-pocket" class="nav-link active block py-4 px-5 text-white/90 text-[0.95rem] hover:bg-white/15 hover:text-white transition-all rounded"><i class="fas fa-layer-group mr-1"></i> Battens &amp; Pockets</a></li>
+                <li><a href="/other-criteria" class="nav-link block py-4 px-5 text-white/90 text-[0.95rem] hover:bg-white/15 hover:text-white transition-all rounded"><i class="fas fa-list-check mr-1"></i> Other special criteria</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-6 py-6">
+        <div class="bg-[#023859]/60 backdrop-blur rounded-2xl p-8 border border-[#26658C]/50 shadow-xl">
+            <a href="/" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#26658C] hover:bg-[#023859] text-white font-medium mb-6 border border-[#54ACBF]/50 transition-all hover:-translate-x-0.5">
+                <i class="fas fa-arrow-left"></i> Back 
+            </a>
+
+            <ul class="nav nav-tabs flex gap-1 mt-2 mb-6 border-b border-[#26658C]" id="battensTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active px-4 py-2 rounded-t border border-b-0 border-[#26658C]" id="tab-types" data-bs-toggle="tab" href="#pane-types" role="tab" aria-controls="pane-types" aria-selected="true">Batten Types</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link px-4 py-2 rounded-t border border-b-0 border-[#26658C]" id="tab-lengths" data-bs-toggle="tab" href="#pane-lengths" role="tab" aria-controls="pane-lengths" aria-selected="false">Batten Lengths</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link px-4 py-2 rounded-t border border-b-0 border-[#26658C]" id="tab-pockets" data-bs-toggle="tab" href="#pane-pockets" role="tab" aria-controls="pane-pockets" aria-selected="false">Pocket Types</a>
+                </li>
+            </ul>
+
+            <div class="tab-content mt-6" id="battensTabContent">
+                <div class="tab-pane fade show active" id="pane-types" role="tabpanel" aria-labelledby="tab-types">
+                    <div class="rounded-2xl overflow-hidden border border-[#26658C]">
+                        <table class="w-full text-left">
+                            <thead><tr class="bg-gradient-to-r from-[#023859] to-[#26658C] text-white">
+                                <th class="px-4 py-3 font-bold uppercase tracking-wide">Batten No</th>
+                                <th class="px-4 py-3 font-bold uppercase tracking-wide">Text File</th>
+                                <th class="px-4 py-3 font-bold uppercase tracking-wide">Work Ticket</th>
+                                <th class="px-4 py-3 font-bold uppercase tracking-wide">Status</th>
+                            </tr></thead>
+                            <tbody id="batTableBody" class="divide-y divide-[#26658C]/50">
+                                <tr class="bg-[#023859]/20"><td class="px-4 py-3 text-white font-semibold">Batten 1</td><td class="px-4 py-3 text-white/90">&nbsp;</td><td class="px-4 py-3 text-white/90">&nbsp;</td><td class="px-4 py-3"><span class="px-3 py-1 rounded-full text-sm font-semibold bg-amber-600/80 text-white">&nbsp;</span></td></tr>
+                                <tr class="bg-[#023859]/20"><td class="px-4 py-3 text-white font-semibold">Batten 2</td><td class="px-4 py-3 text-white/90">&nbsp;</td><td class="px-4 py-3 text-white/90">&nbsp;</td><td class="px-4 py-3"><span class="px-3 py-1 rounded-full text-sm font-semibold bg-amber-600/80 text-white">&nbsp;</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="pane-lengths" role="tabpanel" aria-labelledby="tab-lengths">
+                    <div class="rounded-2xl overflow-hidden border border-[#26658C]">
+                        <table class="w-full text-left">
+                            <thead><tr class="bg-gradient-to-r from-[#023859] to-[#26658C] text-white">
+                                <th class="px-4 py-3 font-bold uppercase tracking-wide">Batten No</th>
+                                <th class="px-4 py-3 font-bold uppercase tracking-wide">Text File Length</th>
+                                <th class="px-4 py-3 font-bold uppercase tracking-wide">Work Ticket Length</th>
+                                <th class="px-4 py-3 font-bold uppercase tracking-wide">Status</th>
+                            </tr></thead>
+                            <tbody id="lengthsTableBody" class="divide-y divide-[#26658C]/50">
+                                <tr class="bg-[#023859]/20"><td class="px-4 py-3 text-white font-semibold">Batten 1</td><td class="px-4 py-3 text-white/90">&nbsp;</td><td class="px-4 py-3 text-white/90">&nbsp;</td><td class="px-4 py-3"><span class="px-3 py-1 rounded-full text-sm font-semibold bg-amber-600/80 text-white">&nbsp;</span></td></tr>
+                                <tr class="bg-[#023859]/20"><td class="px-4 py-3 text-white font-semibold">Batten 2</td><td class="px-4 py-3 text-white/90">&nbsp;</td><td class="px-4 py-3 text-white/90">&nbsp;</td><td class="px-4 py-3"><span class="px-3 py-1 rounded-full text-sm font-semibold bg-amber-600/80 text-white">&nbsp;</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="pane-pockets" role="tabpanel" aria-labelledby="tab-pockets">
+                    <div class="rounded-2xl overflow-hidden border border-[#26658C]">
+                        <table class="w-full text-left">
+                            <thead><tr class="bg-gradient-to-r from-[#023859] to-[#26658C] text-white">
+                                <th class="px-4 py-3 font-bold uppercase tracking-wide">Pocket Name</th>
+                                <th class="px-4 py-3 font-bold uppercase tracking-wide">Tape Layout Count</th>
+                                <th class="px-4 py-3 font-bold uppercase tracking-wide">Work Ticket Count</th>
+                                <th class="px-4 py-3 font-bold uppercase tracking-wide">Status</th>
+                            </tr></thead>
+                            <tbody id="pocketsTableBody" class="divide-y divide-[#26658C]/50">
+                                <tr class="bg-[#023859]/20"><td class="px-4 py-3 text-white/90">&nbsp;</td><td class="px-4 py-3 text-white/90">&nbsp;</td><td class="px-4 py-3 text-white/90">&nbsp;</td><td class="px-4 py-3"><span class="px-3 py-1 rounded-full text-sm font-semibold bg-amber-600/80 text-white">&nbsp;</span></td></tr>
+                                <tr class="bg-[#023859]/20"><td class="px-4 py-3 text-white/90">&nbsp;</td><td class="px-4 py-3 text-white/90">&nbsp;</td><td class="px-4 py-3 text-white/90">&nbsp;</td><td class="px-4 py-3"><span class="px-3 py-1 rounded-full text-sm font-semibold bg-amber-600/80 text-white">&nbsp;</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                showLoading('Loading Battens & Pockets data...');
+
+                function showTab(tabId) {
+                    $('#battensTab .nav-link').removeClass('active');
+                    $('#battensTabContent .tab-pane').removeClass('show active');
+                    $(`#tab-${tabId}`).addClass('active');
+                    $(`#pane-${tabId}`).addClass('show active');
+                }
+
+                function activateFromHash() {
+                    const h = (location.hash || '').replace('#','').toLowerCase();
+                    if (h === 'lengths' || h === 'pockets') {
+                        showTab(h);
+                    } else {
+                        showTab('types');
+                    }
+                }
+
+                // initialize tab from URL hash
+                activateFromHash();
+                $(window).on('hashchange', activateFromHash);
+
+                // set hash when user clicks a sub-tab
+                $('#battensTab .nav-link').on('click', function(e){
+                    const id = $(this).attr('id').replace('tab-','');
+                    location.hash = id;
+                });
+
+                // Fetch comparison data and populate Batten Types pane (placeholders for others)
+                $.ajax({
+                    url: '/run_checking',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({tolerance: 0.01}),
+                    success: function(data){
+                        const battenRows = data.filter(r => typeof r.Criteria === 'string' && r.Criteria.toLowerCase().startsWith('batten'));
+
+                        if (battenRows && battenRows.length) {
+                            battenRows.sort((a,b)=>{
+                                const nna = a.Criteria.toLowerCase().match(/batten\s*(\d+)/);
+                                const nnb = b.Criteria.toLowerCase().match(/batten\s*(\d+)/);
+                                if (nna && nnb) return parseInt(nna[1]) - parseInt(nnb[1]);
+                                return a.Criteria.localeCompare(b.Criteria);
+                            });
+
+                            let html = '';
+                            battenRows.forEach(function(row){
+                                const statusClass = row.Status === '✓' ? 'bg-emerald-600 text-white' : (row.Status === '✗' ? 'bg-red-600 text-white' : 'bg-amber-600/80 text-white');
+                                const statusHtml = `<span class="px-3 py-1.5 rounded-full font-bold text-sm ${statusClass}">${row.Status}</span>`;
+                                const textHtml = (row.Text_File === '-' || row.Text_File === null) ? '&nbsp;' : row.Text_File;
+                                const wtHtml = (row.Work_Ticket === '-' || row.Work_Ticket === null) ? '&nbsp;' : row.Work_Ticket;
+                                html += `<tr class="bg-[#023859]/20 hover:bg-[#26658C]/30 transition-colors"><td class="px-4 py-3 text-white font-semibold">${row.Criteria}</td><td class="px-4 py-3 text-white/90">${textHtml}</td><td class="px-4 py-3 text-white/90">${wtHtml}</td><td class="px-4 py-3">${statusHtml}</td></tr>`;
+                            });
+                            $('#batTableBody').html(html);
+                        } else {
+                            // keep placeholders in all panes
+                            const placeholderHtml = `<tr><td><strong>Batten 1</strong></td><td>&nbsp;</td><td>&nbsp;</td><td><span class="status-badge status-incomplete">&nbsp;</span></td></tr><tr><td><strong>Batten 2</strong></td><td>&nbsp;</td><td>&nbsp;</td><td><span class="status-badge status-incomplete">&nbsp;</span></td></tr>`;
+                            const pocketsPlaceholderHtml = `<tr><td>—</td><td>—</td><td>—</td><td><span class="status-badge status-incomplete">—</span></td></tr><tr><td>—</td><td>—</td><td>—</td><td><span class="status-badge status-incomplete">—</span></td></tr>`;
+                            $('#batTableBody').html(placeholderHtml);
+                            $('#lengthsTableBody').html(placeholderHtml);
+                            $('#pocketsTableBody').html(pocketsPlaceholderHtml);
+                        }
+                        hideLoading();
+                        // attempt to populate lengths pane from CSV endpoint
+                        populateLengthsFromCSV();
+                        populatePocketTypes();
+                    },
+                    error: function(){ hideLoading(); }
+                });
+
+                function populatePocketTypes(){
+                    // Fetch pocket data: Tape Layout/Pocket Count from taping (from Pocket 1), Work Ticket from work ticket
+                    fetch('/pocket_types_json')
+                        .then(r => r.json())
+                        .then(rows => {
+                            if (!rows || !rows.length) {
+                                $('#pocketsTableBody').html(
+                                    '<tr><td>—</td><td>—</td><td>—</td><td><span class="status-badge status-incomplete">—</span></td></tr>' +
+                                    '<tr><td>—</td><td>—</td><td>—</td><td><span class="status-badge status-incomplete">—</span></td></tr>'
+                                );
+                                return;
+                            }
+                            let html = '';
+                            rows.forEach((row) => {
+                                const pocketName = (row.tape_layout || '').trim() || '—';
+                                const tapeLayout = (row.pocket_count != null && row.pocket_count !== '') ? String(row.pocket_count) : '—';
+                                const workTicketCount = (row.work_ticket_count != null && row.work_ticket_count !== '') ? String(row.work_ticket_count) : '—';
+                                const statusHtml = '<span class="status-badge status-incomplete">—</span>';
+                                html += `<tr><td>${pocketName}</td><td>${tapeLayout}</td><td>${workTicketCount}</td><td>${statusHtml}</td></tr>`;
+                            });
+                            $('#pocketsTableBody').html(html);
+                        })
+                        .catch(function(){ /* leave placeholders */ });
+                }
+
+                function populateLengthsFromCSV(){
+                    // Fetch mapping: Text File = Length column bottom→top, Work Ticket = Length column top→down
+                    fetch('/batten_mapping_json')
+                        .then(r => r.json())
+                        .then(rows => {
+                            if (!rows || !rows.length) {
+                                $('#lengthsTableBody').html('<tr><td><strong>Batten 1</strong></td><td>&nbsp;</td><td>&nbsp;</td><td><span class="status-badge status-incomplete">—</span></td></tr><tr><td><strong>Batten 2</strong></td><td>&nbsp;</td><td>&nbsp;</td><td><span class="status-badge status-incomplete">—</span></td></tr>');
+                                return;
+                            }
+                            let html = '';
+                            rows.forEach((row, idx) => {
+                                const wtLen = row.WorkTicket_Length_mm;
+                                const txtLen = row.TextFile_Length_mm;
+                                const hasTxt = txtLen !== '' && txtLen !== null && txtLen !== undefined;
+                                const hasWt = wtLen !== '' && wtLen !== null && wtLen !== undefined;
+                                const txtType = (row.TextFile_Type || '').trim();
+                                const wtType = (row.WorkTicket_Type || '').trim();
+                                const txtDisplay = hasTxt ? (txtLen + ' mm' + (txtType ? ' (' + txtType + ')' : '')) : '—';
+                                const wtDisplay = hasWt ? (wtLen + ' mm' + (wtType ? ' (' + wtType + ')' : '')) : '—';
+                                let statusClass = 'status-incomplete';
+                                let statusChar = '—';
+                                if (hasTxt && hasWt) {
+                                    statusClass = row.Match === true ? 'status-match' : 'status-mismatch';
+                                    statusChar = row.Match === true ? '✓' : '✗';
+                                }
+                                const statusHtml = `<span class="status-badge ${statusClass}">${statusChar}</span>`;
+                                html += `<tr><td><strong>Batten ${idx+1}</strong></td><td>${txtDisplay}</td><td>${wtDisplay}</td><td>${statusHtml}</td></tr>`;
+                            });
+                            $('#lengthsTableBody').html(html);
+                        })
+                        .catch(()=>{
+                            // leave placeholders
+                        });
+                }
+
+                // populate uploaded filenames if element is present
+                $.ajax({
+                    url: '/uploaded_status',
+                    type: 'GET',
+                    success: function(res){
+                        const f = res.files || {};
+                        if ($('#uploadedFilesList').length) {
+                            $('#uploadedFilesList').html(`Text: ${f.txt || '-'} &nbsp;|&nbsp; Taping: ${f.taping || '-'} &nbsp;|&nbsp; Ticket: ${f.ticket || '-'}`);
+                        }
+                    }
+                });
+            });
+
+            function showLoading(text){ console.debug(text); }
+            function hideLoading(){ /* no-op */ }
+        </script>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other special criteria - FP Checking System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { luna: { light: '#A7EBF2', 'mid-light': '#54ACBF', mid: '#26658C', dark: '#023859', darkest: '#011C40' } } } } }</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Times New Roman', Times, serif; }
+        .nav-link.active { background: rgba(255,255,255,0.15); color: #fff !important; }
+        .status-match { color: #34d399; font-weight: bold; }
+        .status-mismatch { color: #f87171; font-weight: bold; }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-[#023859] via-[#022d47] to-[#011C40] pt-14 font-sans text-white antialiased">
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#011C40] shadow-lg border-b border-[#26658C]">
+        <div class="max-w-7xl mx-auto px-6 flex items-center gap-0">
+            <a href="/" class="flex items-center gap-3 py-2 pr-5 text-white font-bold text-lg hover:text-[#A7EBF2] transition-colors">
+                <img src="https://wordpress.textileworld.com/wp-content/uploads/2024/02/00_NS-BULLET_WM_ROYAL.png" alt="North Sails" class="h-10 w-auto object-contain">
+                FP Checking System
+            </a>
+            <ul class="flex list-none m-0 p-0 gap-0.5">
+                <li><a href="/" class="nav-link block py-4 px-5 text-white/90 text-[0.95rem] hover:bg-white/15 hover:text-white transition-all rounded"><i class="fas fa-ruler-combined mr-1"></i> Measurements</a></li>
+                <li><a href="/battens-pocket" class="nav-link block py-4 px-5 text-white/90 text-[0.95rem] hover:bg-white/15 hover:text-white transition-all rounded"><i class="fas fa-layer-group mr-1"></i> Battens &amp; Pockets</a></li>
+                <li><a href="/other-criteria" class="nav-link active block py-4 px-5 text-white/90 text-[0.95rem] hover:bg-white/15 hover:text-white transition-all rounded"><i class="fas fa-list-check mr-1"></i> Other special criteria</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-6 py-6">
+        <div class="bg-[#023859]/60 backdrop-blur rounded-2xl p-8 border border-[#26658C]/50 shadow-xl">
+            <a href="/battens-pocket" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#26658C] hover:bg-[#023859] text-white font-medium mb-6 border border-[#54ACBF]/50 transition-all hover:-translate-x-0.5">
+                <i class="fas fa-arrow-left"></i> Back 
+            </a>
+
+            <h1 class="text-[#A7EBF2] text-2xl font-bold mb-4"></h1>
+            <p class="text-white/70 mb-6"></p>
+            
+            <div class="rounded-2xl overflow-hidden border border-[#26658C] mt-6">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead><tr class="bg-gradient-to-r from-[#023859] to-[#26658C] text-white">
+                            <th class="px-4 py-3 font-bold uppercase tracking-wide w-[30%]"></th>
+                            <th class="px-4 py-3 font-bold uppercase tracking-wide">Text File</th>
+                            <th class="px-4 py-3 font-bold uppercase tracking-wide">Tape Layout</th>
+                            <th class="px-4 py-3 font-bold uppercase tracking-wide">Work Ticket</th>
+                            <th class="px-4 py-3 font-bold uppercase tracking-wide">Status</th>
+                        </tr></thead>
+                        <tbody class="divide-y divide-[#26658C]/50">
+                            <tr class="bg-[#023859]/20 hover:bg-[#26658C]/30 transition-colors">
+                                <th class="px-4 py-3 text-[#A7EBF2] font-semibold">Strips count</th>
+                                <td id="strips_text" class="px-4 py-3 text-white/90">-</td>
+                                <td id="strips_tape" class="px-4 py-3 text-white/90">-</td>
+                                <td id="strips_ticket" class="px-4 py-3 text-white/90">-</td>
+                                <td id="strips_status" class="px-4 py-3">-</td>
+                            </tr>
+                            <tr class="bg-[#023859]/20 hover:bg-[#26658C]/30 transition-colors">
+                                <th class="px-4 py-3 text-[#A7EBF2] font-semibold">Spreader Patches</th>
+                                <td id="spreader_text" class="px-4 py-3 text-white/90">-</td>
+                                <td id="spreader_tape" class="px-4 py-3 text-white/90">-</td>
+                                <td id="spreader_ticket" class="px-4 py-3 text-white/90">-</td>
+                                <td id="spreader_status" class="px-4 py-3">-</td>
+                            </tr>
+                            <tr class="bg-[#023859]/20 hover:bg-[#26658C]/30 transition-colors">
+                                <th class="px-4 py-3 text-[#A7EBF2] font-semibold">Cunningham</th>
+                                <td id="cunningham_text" class="px-4 py-3 text-white/90">-</td>
+                                <td id="cunningham_tape" class="px-4 py-3 text-white/90">-</td>
+                                <td id="cunningham_ticket" class="px-4 py-3 text-white/90">-</td>
+                                <td id="cunningham_status" class="px-4 py-3">-</td>
+                            </tr>
+                            <tr class="bg-[#023859]/20 hover:bg-[#26658C]/30 transition-colors">
+                                <th class="px-4 py-3 text-[#A7EBF2] font-semibold">Helix Structure</th>
+                                <td id="helix_text" class="px-4 py-3 text-white/90">-</td>
+                                <td id="helix_tape" class="px-4 py-3 text-white/90">-</td>
+                                <td id="helix_ticket" class="px-4 py-3 text-white/90">-</td>
+                                <td id="helix_status" class="px-4 py-3">-</td>
+                            </tr>
+                            <tr class="bg-[#023859]/20 hover:bg-[#26658C]/30 transition-colors">
+                                <th class="px-4 py-3 text-[#A7EBF2] font-semibold">Roller reefing/Non Roller reefing structure</th>
+                                <td id="roller_text" class="px-4 py-3 text-white/90">-</td>
+                                <td id="roller_tape" class="px-4 py-3 text-white/90">-</td>
+                                <td id="roller_ticket" class="px-4 py-3 text-white/90">-</td>
+                                <td id="roller_status" class="px-4 py-3">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function() {
+            fetch('/other_criteria_json')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    var txt = data.strips_count_txt;
+                    var tape = data.strips_count_tape;
+                    // prefer the direct strips count (cells under '#'); fall back to width_cells if needed
+                    var wt = data.strips_count_wt != null ? data.strips_count_wt : data.width_cells_wt;
+                    var status = data.strips_status != null && data.strips_status !== '' ? data.strips_status : '-';
+                    document.getElementById('strips_text').textContent = (txt != null && txt !== '') ? String(txt) : '-';
+                    document.getElementById('strips_tape').textContent = (tape != null && tape !== '') ? String(tape) : '-';
+                    document.getElementById('strips_ticket').textContent = (wt != null && wt !== '') ? String(wt) : '-';
+                    var statusEl = document.getElementById('strips_status');
+                    statusEl.textContent = status;
+                    statusEl.className = '';
+                    if (status === '✓') statusEl.classList.add('status-match');
+                    else if (status === '✗') statusEl.classList.add('status-mismatch');
+
+                    var st = data.spreader_txt;
+                    var sp = data.spreader_tape;
+                    var sw = data.spreader_ticket;
+                    var sStatus = (data.spreader_status != null && data.spreader_status !== '') ? data.spreader_status : '-';
+                    var spreaderTextEl = document.getElementById('spreader_text');
+                    var spreaderTapeEl = document.getElementById('spreader_tape');
+                    var spreaderTicketEl = document.getElementById('spreader_ticket');
+                    var spreaderStatusEl = document.getElementById('spreader_status');
+                    if (spreaderTextEl) spreaderTextEl.textContent = (st != null && String(st).trim() !== '') ? String(st) : '-';
+                    if (spreaderTapeEl) spreaderTapeEl.textContent = (sp != null && String(sp).trim() !== '') ? String(sp) : '-';
+                    if (spreaderTicketEl) spreaderTicketEl.textContent = (sw != null && String(sw).trim() !== '') ? String(sw) : '-';
+                    if (spreaderStatusEl) {
+                        spreaderStatusEl.textContent = sStatus;
+                        spreaderStatusEl.className = '';
+                        if (sStatus === '✓') spreaderStatusEl.classList.add('status-match');
+                        else if (sStatus === '✗') spreaderStatusEl.classList.add('status-mismatch');
+                    }
+
+                    var cunninghamTxt = data.cunningham_txt;
+                    var cunninghamTape = data.cunningham_tape;
+                    var cunninghamTicket = data.cunningham_ticket;
+                    var cunninghamStatus = (data.cunningham_status != null && data.cunningham_status !== '') ? data.cunningham_status : '-';
+                    document.getElementById('cunningham_text').textContent = (cunninghamTxt != null && String(cunninghamTxt).trim() !== '') ? String(cunninghamTxt) : '-';
+                    document.getElementById('cunningham_tape').textContent = (cunninghamTape != null && String(cunninghamTape).trim() !== '') ? String(cunninghamTape) : '-';
+                    document.getElementById('cunningham_ticket').textContent = (cunninghamTicket != null && String(cunninghamTicket).trim() !== '') ? String(cunninghamTicket) : '-';
+                    var cunninghamStatusEl = document.getElementById('cunningham_status');
+                    cunninghamStatusEl.textContent = cunninghamStatus;
+                    cunninghamStatusEl.className = '';
+                    if (cunninghamStatus === '✓') cunninghamStatusEl.classList.add('status-match');
+                    else if (cunninghamStatus === '✗') cunninghamStatusEl.classList.add('status-mismatch');
+
+                    var helixTxt = data.helix_txt;
+                    var helixTape = data.helix_tape;
+                    var helixTicket = data.helix_ticket;
+                    var helixStatus = (data.helix_status != null && data.helix_status !== '') ? data.helix_status : '-';
+                    document.getElementById('helix_text').textContent = (helixTxt != null && String(helixTxt).trim() !== '') ? String(helixTxt) : '-';
+                    document.getElementById('helix_tape').textContent = (helixTape != null && String(helixTape).trim() !== '') ? String(helixTape) : '-';
+                    document.getElementById('helix_ticket').textContent = (helixTicket != null && String(helixTicket).trim() !== '') ? String(helixTicket) : '-';
+                    var helixStatusEl = document.getElementById('helix_status');
+                    helixStatusEl.textContent = helixStatus;
+                    helixStatusEl.className = '';
+                    if (helixStatus === '✓') helixStatusEl.classList.add('status-match');
+                    else if (helixStatus === '✗') helixStatusEl.classList.add('status-mismatch');
+
+                    var rollerTxt = data.roller_txt;
+                    var rollerTape = data.roller_tape;
+                    var rollerTicket = data.roller_ticket;
+                    var rollerStatus = (data.roller_status != null && data.roller_status !== '') ? data.roller_status : '-';
+                    document.getElementById('roller_text').textContent = (rollerTxt != null && String(rollerTxt).trim() !== '') ? String(rollerTxt) : '-';
+                    document.getElementById('roller_tape').textContent = (rollerTape != null && String(rollerTape).trim() !== '') ? String(rollerTape) : '-';
+                    document.getElementById('roller_ticket').textContent = (rollerTicket != null && String(rollerTicket).trim() !== '') ? String(rollerTicket) : '-';
+                    var rollerStatusEl = document.getElementById('roller_status');
+                    rollerStatusEl.textContent = rollerStatus;
+                    rollerStatusEl.className = '';
+                    if (rollerStatus === '✓') rollerStatusEl.classList.add('status-match');
+                    else if (rollerStatus === '✗') rollerStatusEl.classList.add('status-mismatch');
+                })
+                .catch(function() {});
+        })();
+    </script>
+</body>
+</html>

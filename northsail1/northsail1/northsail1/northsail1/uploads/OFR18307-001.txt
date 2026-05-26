@@ -1,0 +1,73 @@
+D:\Taping\OFR18307\001\OFR18307-001.txt
+
+w4.1a : OFR18307-001, GP42, JLM, 3Di Raw 870 14700dpi
+      :
+PO#,ID: MG 12/22/11 Tue Feb 24 19:20:02 2026
+
+           Luff   Leech    Foot      LP    Area IRCHead  AeroAR  TrigAR
+Msm   :  15.750  14.480   5.607   5.250   44.75   43.28   4.953   3.000
+
+Girths:  Length %-Foot
+Foot  :   5.607   100.0
+1/4   :   4.293    76.6
+1/2   :   2.979    53.1
+3/4   :   1.646    29.3
+Head  :   0.250     4.5
+
+         2D Luff and Leech 1/8 point offsets from going from Foot to Head
+         0/0    1/8    1/4    3/8    1/2    5/8    3/4    7/8  15/16  1/1   length
+Lu(2D):   0      60     90     95     85     67     45     21     10   0    15.748
+          0   0.706  1.060  1.118  1.000  0.787  0.525  0.246  0.113   0
+Le(2D):   0     -48    -62    -47    -21      4     27     41     33   0    14.478
+          0   2.311  3.036  2.305  1.000 -0.201 -1.312 -2.011 -1.611   0
+Lu(Fan):  0       6      3     -4    -11    -14    -13     -7     -4   0    15.750
+          0  -0.549 -0.314  0.348  1.000  1.311  1.176  0.681  0.352   0
+Foot  :   0.     92    174    252    323    374    380    283   0.    5.607
+Head  :   0.      0      0      0      0      0      0      0   0.    0.250
+
+# - Batts :    Luff   Leech   Girth  Length
+4 - Bat#4 :   3.544   2.896   4.421   1.350 Short Batten
+3 - Bat#3 :   6.540   5.792   3.422   1.350 Short Batten
+2 - Bat#2 :   9.572   8.688   2.407   1.200 Short Batten
+1 - Bat#1 :  12.658  11.583           1.358 Full Length Batten
+
+Marks :    Luff   Leech  Length  Diamonds %-positions
+Lu2/8 :   3.938           0.100
+Le2/8 :           3.619   0.100
+Lu4/8 :   7.875           0.100
+Le4/8 :           7.240   0.100
+Lu6/8 :  11.812           0.100
+Le6/8 :          10.859   0.100
+SS0/8 :   0.630   0.344   5.403
+SS2/8 :   3.938   3.457   4.290
+SS4/8 :   7.875   7.155   2.978
+SS6/8 :  11.812  10.855   1.646
+Cungh :   0.551           0.016
+Hedwn :  15.734           0.016
+
+Areas :  Luff    Leech   Length
+HUW   :  14.135           0.873
+HTW   :  12.415           1.523
+HHW   :   8.966           2.760
+FOFF  :   0.000           0.384
+
+Msm's :   Edge1   Edge2    Pos1    Pos2  Length
+Msm#0 :    Luff   LeMsm   1.000   0.000  14.568
+Msm#1 :    Luff   LeMsm   0.127   0.000   5.251
+Msm#2 :    Luff   LeMsm   0.350   0.250   3.997
+Msm#3 :    Luff   LeMsm   0.569   0.500   2.775
+Msm#4 :    Luff   LeMsm   0.786   0.750   1.547
+
+Angles:  Head    Tack    Clew
+Lines :  21.260  69.371  93.668
+Edges :  20.697  78.538 121.993
+
+Notes : 3DL FILE PROCESSING
+      :
+      :
+      :
+Notes : DESIGN
+
+FPNote:
+      :
+      :

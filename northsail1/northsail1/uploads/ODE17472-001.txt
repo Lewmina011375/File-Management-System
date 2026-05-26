@@ -1,0 +1,72 @@
+C:\01) DESIGN NS GERMANY\01) NORTH SAILS CS DESIGN\01) DESIGNS\01) ODE\ODE17400_17499\ODE17472 X-YACHT X-412-MH STANDARD\ODE17472-001\ODE17472-001.txt
+
+w4.1a : ODE17472-001, X412, Main, 2FB+3LB, 2reefs, 3DiENDURANCEe, 16400dpi, 0505b, M242003014067
+DesMan: "01) Cruise Standard Roach" "03) Main (Paneled Radial Dyneema/Dyneema Carbon)" BL=41 DP= AR=33 Trim=Frac PF=3 Luff=Mid
+PO#,ID: ODE17472-001 Christian_Hamma Thu Mar  5 11:56:51 2026
+
+           Luff   LeGeo    Foot      LP    Area ORCMain  AeroAR  TrigAR
+Msm   :  15.400  16.050   4.650   0.000   45.30   43.67   5.232   3.312
+
+Girths:  Length %-Foot
+Foot  :   4.650   100.0
+1/4   :   3.989    85.8
+1/2   :   3.113    67.0
+3/4   :   1.852    39.8
+Head  :   0.150     3.2
+
+         2D Luff and Leech 1/8 point offsets from going from Foot to Head
+         0/0    1/8    1/4    3/8    1/2    5/8    3/4    7/8  15/16  1/1   length
+Lu(2D):   0      84    152    196    213    200    158     89     47   0    15.392
+          0   0.397  0.714  0.922  1.000  0.940  0.743  0.420  0.220   0
+Le(2D):   0     175    329    447    520    531    458    281    152   0    15.988
+          0   0.337  0.633  0.861  1.000  1.021  0.881  0.541  0.293   0
+Lu(Fan):  0      53     91    113    120    112     90     53     29   0    15.400
+          0   0.446  0.758  0.941  1.000  0.938  0.753  0.444  0.239   0
+Foot  :   0.     91    157    196    208    194    155     90   0.    4.650
+Head  :   0.      0      0      0      0      0      0     -0   0.    0.150
+
+# - Batts :    Luff   Leech   Girth  Length
+5 - Bat#5 :   2.485   2.633   4.237   2.400 Short Batten
+4 - Bat#4 :   5.041   5.277   3.747   2.100 Short Batten
+3 - Bat#3 :   7.607   7.933   3.137   1.800 Short Batten
+2 - Bat#2 :  10.307  10.711           2.328 Full Length Batten
+1 - Bat#1 :  12.878  13.389           1.338 Full Length Batten
+
+Reefs :    Luff   Leech    Foot  LeCord    Area Lu(up)m Le(up)m Diamonds %-positions
+Reef1 :  13.398  13.956   4.327  13.979   35.59   0.000   0.000     3     0.249  0.499  0.749
+ReLu1 :   2.002           0.040
+ReLe1 :           2.078   0.015
+Reef2 :  11.242  11.723   3.932  11.755   26.56   0.000   0.000     3     0.250  0.499  0.749
+ReLu2 :   4.158           0.040
+ReLe2 :           4.311   0.015
+
+Marks :    Luff   Leech  Length  Diamonds %-positions
+SS2/8 :   3.850   4.075   3.977
+SS4/8 :   7.700   7.994   3.118
+SS6/8 :  11.550  11.961   1.869
+Cungh :   0.400           0.040
+Hedwn :  15.385           0.015
+Sli00 :   1.247           0.060
+Sli01 :   2.510           0.060
+Sli02 :   3.758           0.060
+Sli03 :   4.851           0.060
+Sli04 :   5.944           0.060
+Sli05 :   7.038           0.060
+Sli06 :   8.131           0.060
+Sli07 :   9.209           0.060
+Sli08 :  10.303           0.060
+Sli09 :  11.596           0.060
+Sli10 :  12.874           0.060
+Sli11 :  14.137           0.060
+
+Areas :  Luff    Leech   Length
+MQW   :   3.903           3.987
+MHW   :   7.889           3.102
+MTW   :  11.771           1.825
+MUW   :  13.646           1.021
+
+Angles:  Head    Tack    Clew
+Lines :  19.556  90.302  74.952
+Edges :  26.636 102.251  89.391
+
+Notes :

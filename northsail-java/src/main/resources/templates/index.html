@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>North Sails - FP Checking System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        luna: {
+                            light: '#A7EBF2',
+                            'mid-light': '#54ACBF',
+                            mid: '#26658C',
+                            dark: '#023859',
+                            darkest: '#011C40',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Times New Roman', Times, serif; }
+        html { scroll-behavior: smooth; }
+        .content-section { scroll-margin-top: 70px; }
+        .loading-overlay { display: none; align-items: center; justify-content: center; z-index: 9999; }
+        .loading-overlay.show { display: flex; }
+        .nav-link.active { background: rgba(255,255,255,0.15); color: #fff !important; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-[#023859] via-[#022d47] to-[#011C40] pt-14 font-sans text-white antialiased">
+    <!-- Loading overlay -->
+    <div class="loading-overlay fixed inset-0 bg-[#011C40]/90" id="loadingOverlay">
+        <div class="text-center text-white">
+            <div class="w-14 h-14 border-4 border-[#54ACBF] border-t-[#A7EBF2] rounded-full animate-spin mx-auto"></div>
+            <p id="loadingText" class="mt-4 font-semibold">Processing...</p>
+        </div>
+    </div>
+
+    <!-- Top Navigation Bar - Luna darkest -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#011C40] shadow-lg border-b border-[#26658C]">
+        <div class="max-w-7xl mx-auto px-6 flex items-center gap-0">
+            <a href="#" class="flex items-center gap-3 py-2 pr-5 text-white font-bold text-lg hover:text-[#A7EBF2] transition-colors">
+                <img src="https://wordpress.textileworld.com/wp-content/uploads/2024/02/00_NS-BULLET_WM_ROYAL.png" alt="North Sails" class="h-10 w-auto object-contain">
+                FP Checking System
+            </a>
+            <ul class="flex list-none m-0 p-0 gap-0.5">
+                <li><a href="#measurements" class="nav-link active block py-4 px-5 text-white/90 text-[0.95rem] hover:bg-white/15 hover:text-white transition-all rounded"><i class="fas fa-ruler-combined mr-1"></i> Measurements</a></li>
+                <li><a href="/battens-pocket" class="nav-link block py-4 px-5 text-white/90 text-[0.95rem] hover:bg-white/15 hover:text-white transition-all rounded"><i class="fas fa-layer-group mr-1"></i> Battens &amp; Pockets</a></li>
+                <li><a href="/other-criteria" class="nav-link block py-4 px-5 text-white/90 text-[0.95rem] hover:bg-white/15 hover:text-white transition-all rounded"><i class="fas fa-list-check mr-1"></i> Other special criteria</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-6 py-6">
+    <div class="bg-[#023859]/60 backdrop-blur rounded-2xl p-8 border border-[#FFFFFF]/50 shadow-xl">
+        <!-- Hero Section (2nd image style: headline left, image right) -->
+        <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16 rounded-2xl mb-10 p-10 md:p-14 md:py-20 bg-gradient-to-br from-[#011C40] via-[#023859] to-[#26658C] border border-[#54ACBF]/30 shadow-xl overflow-hidden relative min-h-[280px] md:min-h-[320px]">
+            <!-- Subtle starry / depth effect -->
+            <div class="absolute inset-0 opacity-20 pointer-events-none" aria-hidden="true">
+                <div class="absolute top-4 left-1/4 w-1 h-1 rounded-full bg-[#A7EBF2]"></div>
+                <div class="absolute top-12 right-1/3 w-1 h-1 rounded-full bg-[#A7EBF2]/80"></div>
+                <div class="absolute bottom-8 left-1/2 w-0.5 h-0.5 rounded-full bg-[#54ACBF]"></div>
+            </div>
+            <div class="flex-1 text-center md:text-left relative z-10">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow mb-3">FP Checking Platform</h1>
+                <p class="text-[#A7EBF2]/90 text-xl md:text-2xl mb-8">Compare files. Check measurements. Stay consistent.</p>
+                <a href="#measurements" class="inline-flex items-center gap-2 px-8 py-4 text-lg rounded-xl bg-[#26658C] border border-[#54ACBF] text-white font-semibold hover:bg-[#54ACBF] hover:text-[#011C40] transition-all shadow-lg">
+                    <i class="fas fa-upload"></i> Get Started
+                </a>
+            </div>
+            <div class="flex-shrink-0 relative z-10">
+                <img src="https://media.licdn.com/dms/image/v2/D4D22AQGb60HD1NmQBA/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1689758859921?e=2147483647&v=beta&t=fAfF3C88APnmtPqVTizpdt_0fFk09fh5Ey_thAZFfBo" alt="North Sails" class="h-44 md:h-56 lg:h-72 w-auto object-contain drop-shadow-lg">
+            </div>
+        </div>
+
+        <!-- Three feature boxes (Black Advantage style) -->
+        <section class="mb-10">
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="rounded-2xl p-6 bg-[#023859]/70 border border-[#26658C] hover:border-[#54ACBF]/60 transition-all hover:-translate-y-1 hover:shadow-xl flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4 bg-gradient-to-br from-[#A7EBF2] to-[#54ACBF] text-[#011C40]">
+                        <i class="fas fa-award text-2xl"></i>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-3">Precise Comparison</h3>
+                    <p class="text-white/80 text-sm leading-relaxed">Compare text file, taping report and work ticket in one place. Consistent checks for OE number, measurements and special criteria.</p>
+                </div>
+                <div class="rounded-2xl p-6 bg-[#023859]/70 border border-[#26658C] hover:border-[#54ACBF]/60 transition-all hover:-translate-y-1 hover:shadow-xl flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4 bg-gradient-to-br from-[#A7EBF2] to-emerald-400 text-[#011C40]">
+                        <i class="fas fa-microchip text-2xl"></i>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-3">Integrated Workflow</h3>
+                    <p class="text-white/80 text-sm leading-relaxed">Upload PDF, Excel or CSV work tickets. OCR and text extraction support for strip counts and graphics sections.</p>
+                </div>
+                <div class="rounded-2xl p-6 bg-[#023859]/70 border border-[#26658C] hover:border-[#54ACBF]/60 transition-all hover:-translate-y-1 hover:shadow-xl flex flex-col items-center text-center">
+                    <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4 bg-gradient-to-br from-[#A7EBF2] to-[#26658C] text-[#011C40]">
+                        <i class="fas fa-clipboard-check text-2xl"></i>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-3">Clear Results</h3>
+                    <p class="text-white/80 text-sm leading-relaxed">Match, mismatch and incomplete status at a glance. Export to Excel and drill into Battens &amp; Pockets or Other criteria.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Measurements -->
+        <section id="measurements" class="content-section">
+        <h2 class="text-[#A7EBF2] text-2xl font-bold mb-5 pb-3 border-b-2 border-[#54ACBF] flex items-center gap-2"><i class="fas fa-ruler-combined"></i> Measurements</h2>
+
+        <!-- Dynamic Statistics -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-7">
+            <div class="bg-[#023859]/80 rounded-xl p-5 border-l-4 border-[#54ACBF] hover:-translate-y-0.5 hover:shadow-lg transition-all border border-[#26658C]/50">
+                <div class="text-2xl font-bold text-[#A7EBF2]" id="statTotal">0</div>
+                <div class="text-sm text-[#A7EBF2]/80 mt-1">Total Criteria</div>
+            </div>
+            <div class="stat-card match bg-[#023859]/80 rounded-xl p-5 border-l-4 border-emerald-500 hover:-translate-y-0.5 hover:shadow-lg transition-all border border-[#26658C]/50">
+                <div class="text-2xl font-bold text-emerald-400" id="statMatch">0</div>
+                <div class="text-sm text-[#A7EBF2]/80 mt-1">Match</div>
+            </div>
+            <div class="stat-card mismatch bg-[#023859]/80 rounded-xl p-5 border-l-4 border-red-500 hover:-translate-y-0.5 hover:shadow-lg transition-all border border-[#26658C]/50">
+                <div class="text-2xl font-bold text-red-400" id="statMismatch">0</div>
+                <div class="text-sm text-[#A7EBF2]/80 mt-1">Mismatch</div>
+            </div>
+            <div class="stat-card incomplete bg-[#023859]/80 rounded-xl p-5 border-l-4 border-amber-500 hover:-translate-y-0.5 hover:shadow-lg transition-all border border-[#26658C]/50">
+                <div class="text-2xl font-bold text-amber-400" id="statIncomplete">0</div>
+                <div class="text-sm text-[#A7EBF2]/80 mt-1">Incomplete</div>
+            </div>
+        </div>
+        
+        <!-- Upload Sections -->
+        <h2 class="text-[#A7EBF2] text-2xl font-bold mb-5 pb-3 border-b-2 border-[#54ACBF] flex items-center gap-2"><i class="fas fa-upload"></i> File Upload</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+            <div class="rounded-2xl p-6 bg-gradient-to-br from-[#26658C] to-[#023859] border border-[#54ACBF]/40 hover:-translate-y-1 hover:shadow-xl transition-all">
+                <h5 class="text-white font-bold mb-4 text-lg"><i class="fas fa-file-alt mr-2"></i> Upload Text File (.txt)</h5>
+                <div class="flex flex-wrap items-start gap-2">
+                    <input type="file" class="flex-1 min-w-0 rounded-xl border-2 border-white/35 bg-white/20 text-white px-3 py-3 focus:bg-white/30 focus:border-[#A7EBF2] focus:ring-2 focus:ring-[#A7EBF2]/30 file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:bg-[#011C40] file:text-[#A7EBF2]" id="txtFile" accept=".txt">
+                    <button type="button" class="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-medium whitespace-nowrap transition-all hover:-translate-y-0.5" id="deleteTxt" title="Clear file"><i class="fas fa-eraser"></i> Clear</button>
+                </div>
+                <div id="txtFileInfo" class="mt-4 px-3 py-2 rounded-lg bg-white/20 text-white font-medium text-sm"></div>
+            </div>
+            <div class="rounded-2xl p-6 bg-gradient-to-br from-[#26658C] to-[#023859] border border-[#54ACBF]/40 hover:-translate-y-1 hover:shadow-xl transition-all">
+                <h5 class="text-white font-bold mb-4 text-lg"><i class="fas fa-file-pdf mr-2"></i> Upload Taping Report (.pdf)</h5>
+                <div class="flex flex-wrap items-start gap-2">
+                    <input type="file" class="flex-1 min-w-0 rounded-xl border-2 border-white/35 bg-white/20 text-white px-3 py-3 focus:bg-white/30 focus:border-[#A7EBF2] file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:bg-[#011C40] file:text-[#A7EBF2]" id="tapingFile" accept=".pdf">
+                    <button type="button" class="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-medium whitespace-nowrap transition-all hover:-translate-y-0.5" id="deleteTaping" title="Clear file"><i class="fas fa-eraser"></i> Clear</button>
+                </div>
+                <div id="tapingFileInfo" class="mt-4 px-3 py-2 rounded-lg bg-white/20 text-white font-medium text-sm"></div>
+            </div>
+            <div class="rounded-2xl p-6 bg-gradient-to-br from-[#26658C] to-[#023859] border border-[#54ACBF]/40 hover:-translate-y-1 hover:shadow-xl transition-all">
+                <h5 class="text-white font-bold mb-4 text-lg"><i class="fas fa-file-pdf mr-2"></i> Upload Work Ticket (.pdf, .xlsx, .csv)</h5>
+                <div class="flex flex-wrap items-start gap-2">
+                    <input type="file" class="flex-1 min-w-0 rounded-xl border-2 border-white/35 bg-white/20 text-white px-3 py-3 focus:bg-white/30 focus:border-[#A7EBF2] file:mr-2 file:py-1 file:px-3 file:rounded file:border-0 file:bg-[#011C40] file:text-[#A7EBF2]" id="ticketFile" accept=".pdf,.xlsx,.csv">
+                    <button type="button" class="px-4 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-medium whitespace-nowrap transition-all hover:-translate-y-0.5" id="deleteTicket" title="Clear file"><i class="fas fa-eraser"></i> Clear</button>
+                </div>
+                <div id="ticketFileInfo" class="mt-4 px-3 py-2 rounded-lg bg-white/20 text-white font-medium text-sm"></div>
+            </div>
+        </div>
+        
+        <!-- Tolerance and Actions -->
+        <div class="rounded-2xl p-6 mb-8 bg-[#023859]/50 border border-[#26658C]">
+            <div class="flex flex-wrap items-center gap-6">
+                <div>
+                    <label class="font-semibold text-[#A7EBF2] mb-2 block"><i class="fas fa-ruler mr-1"></i> Tolerance (m):</label>
+                    <input type="number" class="w-44 inline-block rounded-xl border-2 border-[#54ACBF] bg-[#011C40]/60 px-3 py-2 text-white focus:ring-2 focus:ring-[#A7EBF2]/50 focus:border-[#A7EBF2]" id="tolerance" value="0.01" step="0.001">
+                </div>
+                <div class="ml-auto flex gap-3">
+                    <button class="px-6 py-3 rounded-xl font-bold text-white bg-[#023859] border-2 border-[#A7EBF2] hover:bg-[#26658C] hover:-translate-y-0.5 hover:shadow-lg transition-all" id="runChecking"><i class="fas fa-play-circle mr-1"></i> Run Checking</button>
+                    <button class="px-6 py-3 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-500 disabled:opacity-60 disabled:cursor-not-allowed transition-all hover:-translate-y-0.5" id="downloadReport" disabled><i class="fas fa-download mr-1"></i> Download Excel Report</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results Table -->
+        <div class="rounded-2xl p-6 bg-[#023859]/50 border border-[#26658C] mt-6">
+            <h2 class="text-[#A7EBF2] text-2xl font-bold mb-4 flex items-center gap-2"><i class="fas fa-table"></i> Results</h2>
+            <div class="flex flex-wrap justify-between items-center gap-4 mb-4">
+                <span class="text-[#A7EBF2]/90">Show
+                    <select id="entriesPerPage" class="inline-block rounded-lg border-2 border-[#54ACBF] bg-[#011C40]/60 text-white px-3 py-2 ml-2 focus:ring-2 focus:ring-[#A7EBF2]/50">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select> entries</span>
+            </div>
+            
+            <div class="overflow-x-auto rounded-xl border border-[#26658C]">
+                <table class="w-full text-left" id="resultsTable">
+                    <thead>
+                        <tr class="bg-gradient-to-r from-[#023859] to-[#26658C] text-white">
+                            <th class="px-4 py-3 font-bold uppercase tracking-wide">Criteria</th>
+                            <th class="px-4 py-3 font-bold uppercase tracking-wide">Text_File</th>
+                            <th class="px-4 py-3 font-bold uppercase tracking-wide">Taping_Report</th>
+                            <th class="px-4 py-3 font-bold uppercase tracking-wide">Work_Ticket</th>
+                            <th class="px-4 py-3 font-bold uppercase tracking-wide">Difference</th>
+                            <th class="px-4 py-3 font-bold uppercase tracking-wide">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody" class="divide-y divide-[#26658C]/50">
+                        <!-- Data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="flex flex-wrap justify-between items-center gap-4 mt-6 text-[#A7EBF2]/90">
+                <span>Showing <span id="startEntry">1</span> to <span id="endEntry">8</span> of <span id="totalEntries">8</span> entries</span>
+                <nav>
+                    <ul class="flex flex-wrap gap-1 list-none m-0 p-0" id="pagination">
+                        <li class="page-item disabled" id="prevPage"><a class="page-link rounded-lg px-3 py-2 border border-[#26658C] text-[#54ACBF] hover:bg-[#26658C]/50 cursor-pointer" href="#">Previous</a></li>
+                        <li class="page-item active" id="page1"><a class="page-link rounded-lg px-3 py-2 bg-[#26658C] text-white border border-[#54ACBF]" href="#">1</a></li>
+                        <li class="page-item" id="nextPage"><a class="page-link rounded-lg px-3 py-2 border border-[#26658C] text-[#54ACBF] hover:bg-[#26658C]/50" href="#">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        </section>
+    </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Top nav: smooth scroll and active state
+        $('.top-navbar .nav-links a[href^="#"]').on('click', function(e) {
+            var href = $(this).attr('href');
+            if (href === '#') return;
+            e.preventDefault();
+            var target = $(href);
+            if (target.length) {
+                target[0].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                $('.top-navbar .nav-links a').removeClass('active');
+                $(this).addClass('active');
+            }
+        });
+        $(window).on('scroll', function() {
+            var scrollTop = $(window).scrollTop();
+            $('.content-section').each(function() {
+                var id = $(this).attr('id'), top = $(this).offset().top - 80, bottom = top + $(this).outerHeight();
+                if (scrollTop >= top && scrollTop < bottom) {
+                    $('.top-navbar .nav-links a').removeClass('active');
+                    $('.top-navbar .nav-links a[href="#' + id + '"]').addClass('active');
+                }
+            });
+        });
+
+        let currentData = [];
+        let currentPage = 1;
+        let entriesPerPage = 10;
+        
+        // File upload handlers
+        $('#txtFile').change(function(e) {
+            uploadFile(e.target.files[0], 'txt', '#txtFileInfo');
+        });
+        
+        $('#tapingFile').change(function(e) {
+            uploadFile(e.target.files[0], 'taping', '#tapingFileInfo');
+        });
+        
+        $('#ticketFile').change(function(e) {
+            uploadFile(e.target.files[0], 'ticket', '#ticketFileInfo');
+        });
+        
+        // Clear button handlers
+        $('#deleteTxt').click(function() {
+            deleteFile('txt', '#txtFile', '#txtFileInfo');
+        });
+        $('#deleteTaping').click(function() {
+            deleteFile('taping', '#tapingFile', '#tapingFileInfo');
+        });
+        $('#deleteTicket').click(function() {
+            deleteFile('ticket', '#ticketFile', '#ticketFileInfo');
+        });
+        
+        function deleteFile(fileType, fileInputId, infoElement) {
+            $.ajax({
+                url: '/delete_file',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({file_type: fileType}),
+                success: function() {
+                    $(fileInputId).val('');
+                    refreshUploadedStatus();
+                },
+                error: function(xhr) {
+                    $(infoElement).html(`<i class="fas fa-exclamation-circle"></i> Clear failed: ${xhr.responseJSON?.error || 'Unknown error'}`);
+                }
+            });
+        }
+        
+        function showLoading(text) {
+            $('#loadingText').text(text || 'Processing...');
+            $('#loadingOverlay').addClass('show');
+        }
+
+        function hideLoading() {
+            $('#loadingOverlay').removeClass('show');
+        }
+
+        // Fetch uploaded filenames + parsed summary so UI persists across pages
+        function refreshUploadedStatus() {
+            $.ajax({
+                url: '/uploaded_status',
+                type: 'GET',
+                success: function(res) {
+                    const files = res.files || {};
+                    $('#txtFileInfo').html(files.txt ? `<i class="fas fa-file"></i> ${files.txt}` : 'No file chosen');
+                    $('#tapingFileInfo').html(files.taping ? `<i class="fas fa-file-pdf"></i> ${files.taping}` : 'No file chosen');
+                    $('#ticketFileInfo').html(files.ticket ? `<i class="fas fa-file-pdf"></i> ${files.ticket}` : 'No file chosen');
+                },
+                error: function() {
+                    // keep existing UI if status fetch fails
+                }
+            });
+        }
+
+        // refresh uploaded status immediately so file info persists after navigation
+        $(document).ready(function(){
+            refreshUploadedStatus();
+        });
+
+        function updateStats(data) {
+            const total = data.length;
+            let match = 0, mismatch = 0, incomplete = 0;
+            data.forEach(function(row) {
+                if (row.Status === '✓') match++;
+                else if (row.Status === '✗') mismatch++;
+                else incomplete++;
+            });
+            $('#statTotal').text(total);
+            $('#statMatch').text(match);
+            $('#statMismatch').text(mismatch);
+            $('#statIncomplete').text(incomplete);
+        }
+
+        function uploadFile(file, fileType, infoElement) {
+            let formData = new FormData();
+            formData.append('file', file);
+            formData.append('file_type', fileType);
+            
+            $(infoElement).html('<i class="fas fa-spinner fa-spin"></i> Uploading...');
+            showLoading('Uploading...');
+            
+            $.ajax({
+                url: '/upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    $(infoElement).html(`<i class="fas fa-check-circle"></i> Upload complete: ${response.filename}`);
+                    refreshUploadedStatus();
+                    hideLoading();
+                },
+                error: function(xhr) {
+                    $(infoElement).html(`<i class="fas fa-exclamation-circle"></i> Upload failed: ${xhr.responseJSON.error}`);
+                    hideLoading();
+                }
+            });
+        }
+        
+        // Run checking
+        $('#runChecking').click(function() {
+            let tolerance = $('#tolerance').val();
+            $(this).html('<i class="fas fa-spinner fa-spin"></i> Processing...');
+            $(this).prop('disabled', true);
+            showLoading('Running check...');
+            
+            $.ajax({
+                url: '/run_checking',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({tolerance: parseFloat(tolerance)}),
+                success: function(data) {
+                    // Exclude any batten-related rows from the Measurements table — handled in Battens & Pocket tab only
+                        currentData = data.filter(function(r){
+                            return !(typeof r.Criteria === 'string' && r.Criteria.toLowerCase().startsWith('batten'));
+                        });
+                        currentPage = 1;
+                        updateStats(currentData);
+                        updateTable();
+                    $('#downloadReport').prop('disabled', false);
+                    $('#runChecking').html('<i class="fas fa-play-circle"></i> Run Checking');
+                    $('#runChecking').prop('disabled', false);
+                    hideLoading();
+                },
+                error: function() {
+                    $('#runChecking').html('<i class="fas fa-play-circle"></i> Run Checking');
+                    $('#runChecking').prop('disabled', false);
+                    hideLoading();
+                }
+            });
+        });
+        
+        // Download report
+        $('#downloadReport').click(function() {
+            window.location.href = '/download_report';
+        });
+        
+        // Entries per page change
+        $('#entriesPerPage').change(function() {
+            entriesPerPage = parseInt($(this).val());
+            currentPage = 1;
+            updateTable();
+        });
+        
+        // Pagination handlers
+        $('#prevPage').click(function() {
+            if (currentPage > 1) {
+                currentPage--;
+                updateTable();
+            }
+        });
+        
+        $('#nextPage').click(function() {
+            let maxPage = Math.ceil(currentData.length / entriesPerPage);
+            if (currentPage < maxPage) {
+                currentPage++;
+                updateTable();
+            }
+        });
+        
+        function updateTable() {
+            let start = (currentPage - 1) * entriesPerPage;
+            let end = Math.min(start + entriesPerPage, currentData.length);
+            let pageData = currentData.slice(start, end);
+            
+            let html = '';
+            pageData.forEach(function(row) {
+                let statusClass = 'px-3 py-1.5 rounded-full font-bold text-sm ';
+                if (row.Status === '✓') statusClass += 'bg-emerald-600 text-white';
+                else if (row.Status === '✗') statusClass += 'bg-red-600 text-white';
+                else statusClass += 'bg-amber-600 text-white';
+                html += '<tr class="bg-[#023859]/20 hover:bg-[#26658C]/30 transition-colors">';
+                html += `<td class="px-4 py-3 text-white"><strong>${row.Criteria}</strong></td>`;
+                html += `<td class="px-4 py-3 text-white/90">${row.Text_File}</td>`;
+                html += `<td class="px-4 py-3 text-white/90">${row.Taping_Report}</td>`;
+                html += `<td class="px-4 py-3 text-white/90">${row.Work_Ticket}</td>`;
+                html += `<td class="px-4 py-3 text-white/90">${row.Difference}</td>`;
+                html += `<td class="px-4 py-3"><span class="${statusClass}">${row.Status}</span></td>`;
+                html += '</tr>';
+            });
+            
+            $('#tableBody').html(html);
+            
+            // Update pagination info
+            $('#startEntry').text(start + 1);
+            $('#endEntry').text(end);
+            $('#totalEntries').text(currentData.length);
+            
+            // Update pagination buttons
+            let maxPage = Math.ceil(currentData.length / entriesPerPage);
+            $('#prevPage').toggleClass('disabled', currentPage === 1);
+            $('#nextPage').toggleClass('disabled', currentPage === maxPage);
+            
+            // Update page numbers
+            let pageHtml = '';
+            for (let i = 1; i <= maxPage; i++) {
+                const active = i === currentPage ? 'bg-[#26658C] text-white border-[#54ACBF]' : 'border border-[#26658C] text-[#54ACBF] hover:bg-[#26658C]/50';
+                pageHtml += `<li class="page-item" id="page${i}"><a class="page-link rounded-lg px-3 py-2 ${active}" href="#" onclick="goToPage(${i})">${i}</a></li>`;
+            }
+            $('#pagination').html(`
+                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}" id="prevPage">
+                    <a class="page-link rounded-lg px-3 py-2 border border-[#26658C] text-[#54ACBF] hover:bg-[#26658C]/50" href="#">Previous</a>
+                </li>
+                ${pageHtml}
+                <li class="page-item ${currentPage === maxPage ? 'disabled' : ''}" id="nextPage">
+                    <a class="page-link rounded-lg px-3 py-2 border border-[#26658C] text-[#54ACBF] hover:bg-[#26658C]/50" href="#">Next</a>
+                </li>
+            `);
+        }
+        
+        window.goToPage = function(page) {
+            currentPage = page;
+            updateTable();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+C:\OneDrive - North Sails\Documents\Design_Projects\Design_Projects\T\Thompson 9.6\oau117055-002 Mainsail\oau117055-002.txt
+
+w4.1a : Thompson 9.60 Mainsail Edge 3D1    10-02-2026
+DesMan:
+PO#,ID: oau117055-002 dickparker Wed Feb 11 01:51:21 2026
+
+           Luff   LeGeo    Foot      LP    Area ORCMain  AeroAR  TrigAR
+Msm   :  12.920  13.550   4.720   0.000   42.60   41.00   3.903   2.737
+
+Girths:  Length %-Foot
+Foot  :   4.720   100.0
+1/4   :   4.102    86.9
+1/2   :   3.377    71.6
+3/4   :   2.498    52.9
+Head  :   1.350    28.6
+
+         2D Luff and Leech 1/8 point offsets from going from Foot to Head
+         0/0    1/8    1/4    3/8    1/2    5/8    3/4    7/8  15/16  1/1   length
+Lu(2D):   0      64    115    148    161    153    122     69     36   0    12.915
+          0   0.401  0.713  0.917  1.000  0.951  0.760  0.432  0.224   0
+Le(2D):   0      61    115    158    191    207    195    136     80   0    13.075
+          0   0.320  0.601  0.830  1.000  1.085  1.024  0.713  0.418   0
+Lu(Fan):  0      40     67     82     86     79     63     36     19   0    12.920
+          0   0.465  0.780  0.955  1.000  0.922  0.729  0.422  0.226   0
+Foot  :   0.     72    123    154    164    154    122     71   0.    4.720
+Head  :   0.      1      1      1      1      0      0      0   0.    1.350
+
+# - Batts :    Luff   Leech   Girth  Length
+6 - Bat#6 :   2.705   2.909   4.182   1.700 Short Batten
+5 - Bat#5 :   5.177   5.422   3.652   1.600 Short Batten
+4 - Bat#4 :   7.591   7.871   3.060   1.400 Short Batten
+3 - Bat#3 :   9.860  10.141           2.415 Full Length Batten
+2 - Bat#2 :  11.279  11.777           1.902 Full Length Batten
+1 - Bat#1 :  11.937  13.059           1.671 Full Length Batten
+
+Reefs :    Luff   Leech    Foot  LeCord    Area Lu(up)m Le(up)m Diamonds %-positions
+Reef1 :  11.331  11.470   4.426  11.948   35.01   0.039   0.000     3     0.249  0.499  0.749
+ReLu1 :   1.589           0.064
+ReLe1 :           1.615   0.013
+Reef2 :   9.005   9.075   3.951   9.580   25.13   0.039   0.000     3     0.249  0.498  0.748
+ReLu2 :   3.915           0.064
+ReLe2 :           4.010   0.013
+
+Marks :    Luff   Leech  Length  Diamonds %-positions
+SS2/8 :   3.230   3.393   4.082
+SS4/8 :   6.460   6.658   3.356
+SS6/8 :   9.690   9.927   2.473
+SS7/8 :  11.305  11.572   1.932
+Cungh :   0.284           0.065
+Hedwn :  12.907           0.013
+
+Areas :  Luff    Leech   Length
+MQW   :   3.500           4.074
+MHW   :   6.874           3.308
+MTW   :  10.281           2.344
+MUW   :  12.075           1.696
+
+Msm's :   Edge1   Edge2    Pos1    Pos2  Length
+Msm#0 :    Luff   Leech   1.000   0.000  13.550
+
+Angles:  Head    Tack    Clew
+Lines :  16.337  88.035  78.714
+Edges :  23.039  97.575  88.005
+
+Notes :

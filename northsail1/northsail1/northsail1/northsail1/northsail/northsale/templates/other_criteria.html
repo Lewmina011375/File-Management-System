@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Additional Requirements - FP Checking System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { 'ns-dark': '#0B3D91', 'ns-medium-dark': '#1E5B99', 'ns-medium': '#3A8EBA', 'ns-light': '#A4D8E1', 'ns-lightest': '#E0F7FA' } } } }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #f8fafc;
+            min-height: 100vh;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #1e293b;
+            padding-top: 64px;
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Top Navigation - with animations */
+        .top-navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1030;
+            background: #fff;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            animation: navbar-slide-down 0.4s ease-out;
+            transition: box-shadow 0.3s ease;
+        }
+        .top-navbar:hover {
+            box-shadow: 0 2px 12px rgba(11, 61, 145, 0.08);
+        }
+        @keyframes navbar-slide-down {
+            from { opacity: 0; transform: translateY(-12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .top-navbar .nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            height: 64px;
+        }
+        .top-navbar .nav-brand {
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 1.125rem;
+            padding: 0 24px 0 0;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.02em;
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease, letter-spacing 0.3s ease, text-shadow 0.3s ease;
+        }
+        .top-navbar .nav-brand:hover {
+            color: #0B3D91;
+            letter-spacing: 0.02em;
+            transform: translateX(4px);
+            text-shadow: 0 0 20px rgba(11, 61, 145, 0.2);
+        }
+        .top-navbar .nav-brand .nav-brand-logo {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .top-navbar .nav-brand:hover .nav-brand-logo {
+            transform: rotate(-12deg) scale(1.08);
+        }
+        .top-navbar .nav-links { display: flex; list-style: none; margin: 0; padding: 0; gap: 4px; }
+        .top-navbar .nav-links li {
+            position: relative;
+            animation: nav-link-enter 0.5s ease-out backwards;
+        }
+        .top-navbar .nav-links li:nth-child(1) { animation-delay: 0.1s; }
+        .top-navbar .nav-links li:nth-child(2) { animation-delay: 0.18s; }
+        .top-navbar .nav-links li:nth-child(3) { animation-delay: 0.26s; }
+        @keyframes nav-link-enter {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .top-navbar .nav-links a {
+            color: #64748b;
+            text-decoration: none;
+            padding: 10px 18px;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.01em;
+            transition: color 0.3s ease, letter-spacing 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+        }
+        .top-navbar .nav-links a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(11, 61, 145, 0.08) 0%, rgba(58, 142, 186, 0.12) 100%);
+            border-radius: 10px;
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: -1;
+        }
+        .top-navbar .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 6px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #0B3D91, #3A8EBA, transparent);
+            border-radius: 1px;
+            transform: translateX(-50%);
+            transition: width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .top-navbar .nav-links a:hover {
+            color: #0B3D91;
+            letter-spacing: 0.06em;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 4px 14px rgba(11, 61, 145, 0.15);
+        }
+        .top-navbar .nav-links a:hover::before { opacity: 1; transform: scale(1); }
+        .top-navbar .nav-links a:hover::after { width: 80%; }
+        .top-navbar .nav-links a.active {
+            color: #0B3D91;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            box-shadow: 0 2px 10px rgba(11, 61, 145, 0.12);
+        }
+        .top-navbar .nav-links a.active::before {
+            opacity: 1;
+            background: linear-gradient(135deg, rgba(11, 61, 145, 0.1) 0%, rgba(58, 142, 186, 0.15) 100%);
+            transform: scale(1);
+        }
+        .top-navbar .nav-links a.active::after { width: 70%; }
+        .main-content { padding: 32px; max-width: 1280px; margin: 0 auto; }
+        .container {
+            background: #fff;
+            padding: 40px 40px 48px;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(11, 61, 145, 0.04);
+            border: 1px solid #e2e8f0;
+        }
+        /* Hero - same as index, with Go back button */
+        .hero-wrap {
+            position: relative;
+            min-height: 340px;
+            margin: -40px -40px 40px -40px;
+            padding: 40px 40px 48px;
+            overflow: hidden;
+            background: linear-gradient(180deg, #f0f9ff 0%, #f8fafc 100%);
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .hero-card {
+            position: relative;
+            z-index: 2;
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 12px 32px rgba(11, 61, 145, 0.06);
+            border: 1px solid #e2e8f0;
+            padding: 40px 48px 48px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 48px;
+        }
+        .hero-content-left { flex: 1; min-width: 280px; }
+        .hero-content-left h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+        .hero-content-left .hero-tagline {
+            color: #64748b;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 28px;
+            max-width: 440px;
+        }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: #0B3D91;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(11, 61, 145, 0.2);
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .hero-cta:hover {
+            background: #0a3578;
+            box-shadow: 0 4px 16px rgba(11, 61, 145, 0.25);
+            color: white;
+        }
+        .hero-content-right { flex: 0 0 300px; min-height: 200px; display: flex; align-items: center; justify-content: center; }
+        .hero-illustration {
+            width: 100%;
+            max-width: 280px;
+            height: 200px;
+            border-radius: 14px;
+            border: 1px solid #e0f2fe;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-illustration-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        @media (max-width: 768px) {
+            .hero-wrap { margin: -16px -16px 24px -16px; padding: 24px 16px 32px; min-height: auto; }
+            .hero-card { padding: 28px 24px 36px; flex-direction: column; gap: 32px; }
+            .hero-content-left h1 { font-size: 1.75rem; }
+            .hero-content-right { flex: none; width: 100%; min-height: 160px; }
+            .hero-illustration { height: 160px; }
+        }
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #0B3D91;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9375rem;
+            margin-bottom: 28px;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .back-button:hover { background: #0a3578; color: white; box-shadow: 0 2px 8px rgba(11, 61, 145, 0.25); }
+        .page-title {
+            color: #0f172a;
+            font-size: 1.375rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .table-section { margin-top: 24px; }
+        .table-section .table { border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; }
+        .table-section thead tr th {
+            background: #A4D8E1;
+            color: #0B3D91;
+            padding: 14px 16px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+        }
+        .table-section tbody td { padding: 14px 16px; border-color: #e2e8f0; font-size: 0.9375rem; }
+        .table-section tbody tr:hover { background: #f8fafc; }
+        .status-match { color: #059669; font-weight: 600; }
+        .status-mismatch { color: #dc2626; font-weight: 600; }
+        .status-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .status-icon-pass { background: #059669; color: #fff; }
+        .status-icon-fail { background: #dc2626; color: #fff; }
+        @media (max-width: 768px) {
+            body { padding-top: 56px; }
+            .top-navbar .nav-inner { height: auto; padding: 12px 16px; flex-wrap: wrap; }
+            .main-content { padding: 16px; }
+            .container { padding: 24px 20px 32px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-navbar">
+        <div class="nav-inner">
+            <a href="/" class="nav-brand"><img src="https://wordpress.textileworld.com/wp-content/uploads/2024/02/00_NS-BULLET_WM_ROYAL-1024x1024.png" alt="North Sails" class="nav-brand-logo"></a>
+            <ul class="nav-links">
+                <li><a href="/" class="nav-link"><i class="fas fa-ruler-combined"></i> Dimensions</a></li>
+                <li><a href="/battens-pocket" class="nav-link"><i class="fas fa-layer-group"></i> Battens &amp; Pockets</a></li>
+                <li><a href="/other-criteria" class="nav-link active"><i class="fas fa-list-check"></i> Additional Requirements</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <!-- Hero section: headline, tagline, Go back button (same place as Get started), illustration -->
+            <div class="hero-wrap">
+                <div class="hero-card">
+                    <div class="hero-content-left">
+                        <h1>Additional Requirements</h1>
+                        <p class="hero-tagline">Review and validate additional requirements beyond standard measurements. Ensure full compliance with design requirements.</p>
+                        <a href="/battens-pocket" class="hero-cta">
+                            <i class="fas fa-arrow-left"></i> Back to Battens and Pockets
+                        </a>
+                    </div>
+                    <div class="hero-content-right">
+                        <div class="hero-illustration">
+                            <img src="https://static.vecteezy.com/system/resources/previews/033/029/679/original/corporate-business-team-having-a-meeting-in-a-virtual-office-room-digital-workspace-flat-modern-illustration-vector.jpg" alt="Sail design verification" class="hero-illustration-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h1 class="page-title"></h1>
+            <p class="text-muted mb-4"></p>
+            
+            <div class="table-section mt-4">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="width:30%">Requirements</th>
+                                <th>Text File</th>
+                                <th>Work Ticket</th>
+                                <th>Tape Layout</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Exterior Tape</th>
+                                <td id="exterior_tape_text">-</td>
+                                <td id="exterior_tape_ticket">-</td>
+                                <td id="exterior_tape_tape">-</td>
+                                <td id="exterior_tape_status">-</td>
+                            </tr>
+                            <tr>
+                                <th>Trim Stripes Count</th>
+                                <td id="strips_text">-</td>
+                                <td id="strips_ticket">-</td>
+                                <td id="strips_tape">-</td>
+                                <td id="strips_status">-</td>
+                            </tr>
+                            <tr>
+                                <th>Reefs Count</th>
+                                <td id="reefs_text">-</td>
+                                <td id="reefs_ticket">-</td>
+                                <td id="reefs_tape">-</td>
+                                <td id="reefs_status">-</td>
+                            </tr>
+                            <tr>
+                                <th>Spreader Patches</th>
+                                <td id="spreader_text">-</td>
+                                <td id="spreader_ticket">-</td>
+                                <td id="spreader_tape">-</td>
+                                <td id="spreader_status">-</td>
+                            </tr>
+                            <tr>
+                                <th>Helix Structure</th>
+                                <td id="helix_text">-</td>
+                                <td id="helix_ticket">-</td>
+                                <td id="helix_tape">-</td>
+                                <td id="helix_status">-</td>
+                            </tr>
+                            <tr>
+                                <th>Cunningham</th>
+                                <td id="cunningham_text">-</td>
+                                <td id="cunningham_ticket">-</td>
+                                <td id="cunningham_tape">-</td>
+                                <td id="cunningham_status">-</td>
+                            </tr>
+                            <tr>
+                                <th>Roller reefing/Non Roller reefing structure</th>
+                                <td id="roller_text">-</td>
+                                <td id="roller_ticket">-</td>
+                                <td id="roller_tape">-</td>
+                                <td id="roller_status">-</td>
+                            </tr>
+                            <tr>
+                                <th>TT Windows</th>
+                                <td id="tt_windows_text">-</td>
+                                <td id="tt_windows_ticket">-</td>
+                                <td id="tt_windows_tape">-</td>
+                                <td id="tt_windows_status">-</td>
+                            </tr>
+                            <tr>
+                                <th>Stanchion Patches</th>
+                                <td id="stachion_text">-</td>
+                                <td id="stachion_ticket">-</td>
+                                <td id="stachion_tape">-</td>
+                                <td id="stachion_status">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        (function() {
+            fetch('/other_criteria_json')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    // Exterior Tape (currently simple display, status '-')
+                    var extTxt = data.exterior_tape_txt;
+                    var extTape = data.exterior_tape_tape;
+                    var extWt = data.exterior_tape_wt;
+                    var extStatus = (data.exterior_tape_status != null && data.exterior_tape_status !== '') ? data.exterior_tape_status : '-';
+                    document.getElementById('exterior_tape_text').textContent = (extTxt != null && extTxt !== '') ? String(extTxt) : '-';
+                    document.getElementById('exterior_tape_tape').textContent = (extTape != null && extTape !== '') ? String(extTape) : '-';
+                    document.getElementById('exterior_tape_ticket').textContent = (extWt != null && extWt !== '') ? String(extWt) : '-';
+                    var extStatusEl = document.getElementById('exterior_tape_status');
+                    extStatusEl.className = '';
+                    if (extStatus === '✓') extStatusEl.innerHTML = '<span class="status-icon status-icon-pass" title="Pass">✓</span>';
+                    else if (extStatus === '✗') extStatusEl.innerHTML = '<span class="status-icon status-icon-fail" title="Fail">✗</span>';
+                    else { extStatusEl.textContent = extStatus; }
+
+                    var txt = data.strips_count_txt;
+                    var tape = data.strips_count_tape;
+                    var wt = data.strips_count_wt_display != null ? data.strips_count_wt_display : (data.width_cells_wt != null ? data.width_cells_wt : data.strips_count_wt);
+                    var status = data.strips_status != null && data.strips_status !== '' ? data.strips_status : '-';
+                    document.getElementById('strips_text').textContent = (txt != null && txt !== '') ? String(txt) : '-';
+                    document.getElementById('strips_tape').textContent = (tape != null && tape !== '') ? String(tape) : '-';
+                    document.getElementById('strips_ticket').textContent = (wt != null && wt !== '') ? String(wt) : '-';
+                    var statusEl = document.getElementById('strips_status');
+                    statusEl.className = '';
+                    if (status === '✓') statusEl.innerHTML = '<span class="status-icon status-icon-pass" title="Pass">✓</span>';
+                    else if (status === '✗') statusEl.innerHTML = '<span class="status-icon status-icon-fail" title="Fail">✗</span>';
+                    else { statusEl.textContent = status; }
+
+                    // Reefs Count
+                    var reefsTxt = data.reefs_count_txt;
+                    var reefsTape = data.reefs_count_tape;
+                    var reefsWt = data.reefs_count_wt;
+                    var reefsStatus = (data.reefs_status != null && data.reefs_status !== '') ? data.reefs_status : '-';
+                    document.getElementById('reefs_text').textContent = (reefsTxt != null && reefsTxt !== '') ? String(reefsTxt) : '-';
+                    document.getElementById('reefs_tape').textContent = (reefsTape != null && reefsTape !== '') ? String(reefsTape) : '-';
+                    document.getElementById('reefs_ticket').textContent = (reefsWt != null && reefsWt !== '') ? String(reefsWt) : '-';
+                    var reefsStatusEl = document.getElementById('reefs_status');
+                    reefsStatusEl.className = '';
+                    if (reefsStatus === '✓') reefsStatusEl.innerHTML = '<span class="status-icon status-icon-pass" title="Pass">✓</span>';
+                    else if (reefsStatus === '✗') reefsStatusEl.innerHTML = '<span class="status-icon status-icon-fail" title="Fail">✗</span>';
+                    else { reefsStatusEl.textContent = reefsStatus; }
+
+                    var st = data.spreader_txt;
+                    var sp = data.spreader_tape;
+                    var sw = data.spreader_ticket;
+                    var sStatus = (data.spreader_status != null && data.spreader_status !== '') ? data.spreader_status : '-';
+                    var spreaderTextEl = document.getElementById('spreader_text');
+                    var spreaderTapeEl = document.getElementById('spreader_tape');
+                    var spreaderTicketEl = document.getElementById('spreader_ticket');
+                    var spreaderStatusEl = document.getElementById('spreader_status');
+                    if (spreaderTextEl) spreaderTextEl.textContent = (st != null && String(st).trim() !== '') ? String(st) : '-';
+                    if (spreaderTapeEl) spreaderTapeEl.textContent = (sp != null && String(sp).trim() !== '') ? String(sp) : '-';
+                    if (spreaderTicketEl) spreaderTicketEl.textContent = (sw != null && String(sw).trim() !== '') ? String(sw) : '-';
+                    if (spreaderStatusEl) {
+                        spreaderStatusEl.className = '';
+                        if (sStatus === '✓') spreaderStatusEl.innerHTML = '<span class="status-icon status-icon-pass" title="Pass">✓</span>';
+                        else if (sStatus === '✗') spreaderStatusEl.innerHTML = '<span class="status-icon status-icon-fail" title="Fail">✗</span>';
+                        else spreaderStatusEl.textContent = sStatus;
+                    }
+
+                    var helixTxt = data.helix_txt;
+                    var helixTape = data.helix_tape;
+                    var helixTicket = data.helix_ticket;
+                    var helixStatus = (data.helix_status != null && data.helix_status !== '') ? data.helix_status : '-';
+                    document.getElementById('helix_text').textContent = (helixTxt != null && String(helixTxt).trim() !== '') ? String(helixTxt) : '-';
+                    document.getElementById('helix_tape').textContent = (helixTape != null && String(helixTape).trim() !== '') ? String(helixTape) : '-';
+                    document.getElementById('helix_ticket').textContent = (helixTicket != null && String(helixTicket).trim() !== '') ? String(helixTicket) : '-';
+                    var helixStatusEl = document.getElementById('helix_status');
+                    helixStatusEl.className = '';
+                    if (helixStatus === '✓') helixStatusEl.innerHTML = '<span class="status-icon status-icon-pass" title="Pass">✓</span>';
+                    else if (helixStatus === '✗') helixStatusEl.innerHTML = '<span class="status-icon status-icon-fail" title="Fail">✗</span>';
+                    else helixStatusEl.textContent = helixStatus;
+
+                    var cunninghamTxt = data.cunningham_txt;
+                    var cunninghamTape = data.cunningham_tape;
+                    var cunninghamTicket = data.cunningham_ticket;
+                    var cunninghamStatus = (data.cunningham_status != null && data.cunningham_status !== '') ? data.cunningham_status : '-';
+                    document.getElementById('cunningham_text').textContent = (cunninghamTxt != null && String(cunninghamTxt).trim() !== '') ? String(cunninghamTxt) : '-';
+                    document.getElementById('cunningham_tape').textContent = (cunninghamTape != null && String(cunninghamTape).trim() !== '') ? String(cunninghamTape) : '-';
+                    document.getElementById('cunningham_ticket').textContent = (cunninghamTicket != null && String(cunninghamTicket).trim() !== '') ? String(cunninghamTicket) : '-';
+                    var cunninghamStatusEl = document.getElementById('cunningham_status');
+                    cunninghamStatusEl.className = '';
+                    if (cunninghamStatus === '✓') cunninghamStatusEl.innerHTML = '<span class="status-icon status-icon-pass" title="Pass">✓</span>';
+                    else if (cunninghamStatus === '✗') cunninghamStatusEl.innerHTML = '<span class="status-icon status-icon-fail" title="Fail">✗</span>';
+                    else cunninghamStatusEl.textContent = cunninghamStatus;
+
+                    var rollerTxt = data.roller_txt;
+                    var rollerTape = data.roller_tape;
+                    var rollerTicket = data.roller_ticket;
+                    var rollerStatus = (data.roller_status != null && data.roller_status !== '') ? data.roller_status : '-';
+                    document.getElementById('roller_text').textContent = (rollerTxt != null && String(rollerTxt).trim() !== '') ? String(rollerTxt) : '-';
+                    document.getElementById('roller_tape').textContent = (rollerTape != null && String(rollerTape).trim() !== '') ? String(rollerTape) : '-';
+                    document.getElementById('roller_ticket').textContent = (rollerTicket != null && String(rollerTicket).trim() !== '') ? String(rollerTicket) : '-';
+                    var rollerStatusEl = document.getElementById('roller_status');
+                    rollerStatusEl.className = '';
+                    if (rollerStatus === '✓') rollerStatusEl.innerHTML = '<span class="status-icon status-icon-pass" title="Pass">✓</span>';
+                    else if (rollerStatus === '✗') rollerStatusEl.innerHTML = '<span class="status-icon status-icon-fail" title="Fail">✗</span>';
+                    else rollerStatusEl.textContent = rollerStatus;
+
+                    var ttTxt = data.tt_windows_txt;
+                    var ttTape = data.tt_windows_tape;
+                    var ttTicket = data.tt_windows_ticket;
+                    var ttStatus = (data.tt_windows_status != null && data.tt_windows_status !== '') ? data.tt_windows_status : '-';
+                    document.getElementById('tt_windows_text').textContent = (ttTxt != null && String(ttTxt).trim() !== '') ? String(ttTxt) : '-';
+                    document.getElementById('tt_windows_tape').textContent = (ttTape != null && String(ttTape).trim() !== '') ? String(ttTape) : '-';
+                    document.getElementById('tt_windows_ticket').textContent = (ttTicket != null && String(ttTicket).trim() !== '') ? String(ttTicket) : '-';
+                    var ttStatusEl = document.getElementById('tt_windows_status');
+                    ttStatusEl.className = '';
+                    if (ttStatus === '✓') ttStatusEl.innerHTML = '<span class="status-icon status-icon-pass" title="Pass">✓</span>';
+                    else if (ttStatus === '✗') ttStatusEl.innerHTML = '<span class="status-icon status-icon-fail" title="Fail">✗</span>';
+                    else ttStatusEl.textContent = ttStatus;
+
+                    var stachionTxt = data.stachion_txt;
+                    var stachionTape = data.stachion_tape;
+                    var stachionTicket = data.stachion_ticket;
+                    var stachionStatus = (data.stachion_status != null && data.stachion_status !== '') ? data.stachion_status : '-';
+                    document.getElementById('stachion_text').textContent = (stachionTxt != null && String(stachionTxt).trim() !== '') ? String(stachionTxt) : '-';
+                    document.getElementById('stachion_tape').textContent = (stachionTape != null && String(stachionTape).trim() !== '') ? String(stachionTape) : '-';
+                    document.getElementById('stachion_ticket').textContent = (stachionTicket != null && String(stachionTicket).trim() !== '') ? String(stachionTicket) : '-';
+                    var stachionStatusEl = document.getElementById('stachion_status');
+                    stachionStatusEl.className = '';
+                    if (stachionStatus === '✓') stachionStatusEl.innerHTML = '<span class="status-icon status-icon-pass" title="Pass">✓</span>';
+                    else if (stachionStatus === '✗') stachionStatusEl.innerHTML = '<span class="status-icon status-icon-fail" title="Fail">✗</span>';
+                    else stachionStatusEl.textContent = stachionStatus;
+                })
+                .catch(function() {});
+        })();
+    </script>
+</body>
+</html>
